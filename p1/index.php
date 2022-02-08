@@ -1,9 +1,17 @@
 <?php
 
-$inputString = 'mississippi';
+session_start();
 
-$length = strlen($inputString);
+if (isset($_SESSION['results'])) {
+    $results = $_SESSION['results'];
 
-$isBigWord = $length > 10;
+    $inputString = $results['inputString'];
+    $isPalindrome = $results['isPalindrome'];
+    $isBigWord = $results['isBigWord'];
+    
+    //extract($results);
+
+    $_SESSION['results'] = null;
+}
 
 require 'index-view.php';
