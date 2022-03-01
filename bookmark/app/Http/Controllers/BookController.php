@@ -16,8 +16,13 @@ class BookController extends Controller
     public function show($title)
     {
         # TODO: Query the database for the book where title = $title
-        # Return view to display the book data
-        return 'This is the details for the book:' . $title;
+        
+        $bookFound = true;
+
+        return view('books/show', [
+            'title' => $title,
+            'bookFound' => $bookFound
+        ]);
     }
 
     public function filter($category, $subcategory)
