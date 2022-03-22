@@ -12,7 +12,7 @@
 </h1>
 
 <p>
-    Please email support@bookmark.com for additional assistance.
+    Please email {{ config('mail.contact_email')}} for additional assistance.
 </p>
 
 <a href='/'>Return home</a>
