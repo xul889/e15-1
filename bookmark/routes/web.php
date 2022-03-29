@@ -6,6 +6,10 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\PracticeController;
 
+Route::get('/example', function () {
+    return 'Example';
+});
+
 Route::any('/practice/{n?}', [PracticeController::class, 'index']);
 
 Route::get('/', [PageController::class, 'welcome']);
