@@ -16,7 +16,7 @@ class CreateReviewsTable extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('book_id');
+            $table->bigInteger('book_id'); /* The data type for this field should match the data type of the `id `field in the `books` table */
             $table->text('content');
             $table->string('first_name');
             $table->string('last_name');
