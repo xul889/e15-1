@@ -81,7 +81,7 @@ class BooksTableSeeder extends Seeder
      */
     private function addRandomlyGeneratedBooksUsingFaker()
     {
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $book = new Book();
             
             $timestamp = $this->faker->dateTimeThisMonth();
