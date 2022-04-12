@@ -25,7 +25,6 @@ class BooksTableSeeder extends Seeder
         # https://fakerphp.github.io
         $this->faker = Factory::create();
 
-
         # Three different examples of how to add books
         //$this->addOneBook();
         $this->addAllBooksFromBooksDotJsonFile();

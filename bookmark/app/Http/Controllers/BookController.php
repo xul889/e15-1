@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use App\Models\Author;
 use App\Models\Book;
 
@@ -41,7 +40,7 @@ class BookController extends Controller
         $book = new Book();
         $book->title = $request->title;
         $book->slug = $request->slug;
-        $book->author_id = $request->author ;
+        $book->author_id = $request->author_id;
         $book->published_year = $request->published_year;
         $book->cover_url = $request->cover_url;
         $book->info_url = $request->info_url;
@@ -119,11 +118,17 @@ class BookController extends Controller
     {
         $book = Book::where('slug', '=', $slug)->first();
 
+        # Get data for authors in alphabetical order by last name
+        $authors = Author::orderBy('last_name')->select(['id', 'first_name', 'last_name'])->get();
+
         if (!$book) {
             return redirect('/books')->with(['flash-alert' => 'Book not found.']);
         }
 
-        return view('books/edit', ['book' => $book]);
+        return view('books/edit', [
+            'book' => $book,
+            'authors' => $authors
+        ]);
     }
 
     /**
