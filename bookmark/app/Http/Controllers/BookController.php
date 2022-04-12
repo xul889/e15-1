@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use App\Models\Author;
 use App\Models\Book;
 
 class BookController extends Controller
@@ -14,7 +15,10 @@ class BookController extends Controller
     */
     public function create(Request $request)
     {
-        return view('books/create');
+        # Get data for authors in alphabetical order by last name
+        $authors = Author::orderBy('last_name')->select(['id', 'first_name', 'last_name'])->get();
+
+        return view('books/create', ['authors' => $authors]);
     }
 
     /**
@@ -26,7 +30,7 @@ class BookController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:books,slug,alpha_dash',
-            'author' => 'required|max:255',
+            'author_id' => 'required',
             'published_year' => 'required|digits:4',
             'cover_url' => 'required|url',
             'info_url' => 'required|url',
@@ -37,7 +41,7 @@ class BookController extends Controller
         $book = new Book();
         $book->title = $request->title;
         $book->slug = $request->slug;
-        $book->author = $request->author ;
+        $book->author_id = $request->author ;
         $book->published_year = $request->published_year;
         $book->cover_url = $request->cover_url;
         $book->info_url = $request->info_url;
@@ -59,24 +63,15 @@ class BookController extends Controller
             'searchType' => 'required'
         ]);
 
-        # If validation fails, it will redirect back to `/`
+        # Note: If validation fails, it will redirect back to `/`
 
-        # Get the form input values (default to null if no values exist)
-        $searchTerms = $request->input('searchTerms', null);
-        $searchType = $request->input('searchType', null);
+        # Get form data
+        $searchType = $request->input('searchType', 'title');
+        $searchTerms = $request->input('searchTerms', '');
 
-        # Load our json book data and convert it to an array
-        $bookData = file_get_contents(database_path('books.json'));
-        $books = json_decode($bookData, true);
-    
-        # Do search
-        $searchResults = [];
-        foreach ($books as $slug => $book) {
-            if (strtolower($book[$searchType]) == strtolower($searchTerms)) {
-                $searchResults[$slug] = $book;
-            }
-        }
-    
+        # Do the search
+        $searchResults = Book::where($searchType, 'LIKE', '%'.$searchTerms.'%')->get();
+            
         # Redirect back to the form with data/results stored in the session
         # Ref: https://laravel.com/docs/responses#redirecting-with-flashed-session-data
         return redirect('/')->with([
@@ -160,6 +155,40 @@ class BookController extends Controller
         $book->save();
 
         return redirect('/books/'.$slug.'/edit')->with(['flash-alert' => 'Your changes were saved.']);
+    }
+
+    /**
+    * Asks user to confirm they want to delete the book
+    * GET /books/{slug}/delete
+    */
+    public function delete($slug)
+    {
+        $book = Book::findBySlug($slug);
+
+        if (!$book) {
+            return redirect('/books')->with([
+                'flash-alert' => 'Book not found'
+            ]);
+        }
+
+        return view('books/delete', ['book' => $book]);
+    }
+
+    /**
+    * Deletes the book
+    * DELETE /books/{slug}/delete
+    */
+    public function destroy($slug)
+    {
+        $book = Book::findBySlug($slug);
+
+        #$book->users()->detach();
+
+        $book->delete();
+
+        return redirect('/books')->with([
+            'flash-alert' => '“' . $book->title . '” was removed.'
+        ]);
     }
 
     /**
