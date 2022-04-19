@@ -1,14 +1,21 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\PracticeController;
+use App\Http\Controllers\TestController;
+
+if (!App::environment('production')) {
+    Route::get('/test/login-as/{userId}', [TestController::class, 'loginAs']);
+    Route::get('/test/refresh-database', [TestController::class, 'refreshDatabase']);
+    Route::any('/practice/{n?}', [PracticeController::class, 'index']);
+}
 
 Route::get('/', [PageController::class, 'welcome']);
 Route::get('/contact', [PageController::class, 'contact']);
-Route::any('/practice/{n?}', [PracticeController::class, 'index']);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/books', [BookController::class, 'index']);
@@ -35,5 +42,12 @@ Route::group(['middleware' => 'auth'], function () {
     # Process the deletion of a book
     Route::delete('/books/{slug}', [BookController::class, 'destroy']);
 
+    /**
+     * List
+     */
     Route::get('/list', [ListController::class, 'show']);
+    Route::get('/list/{slug}/add', [ListController::class, 'add']);
+    Route::post('/list/{slug}/save', [ListController::class, 'save']);
+    Route::put('/list/{slug}/update', [ListController::class, 'update']);
+    Route::delete('/list/{slug}/destroy', [ListController::class, 'destroy']);
 });

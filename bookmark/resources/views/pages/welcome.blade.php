@@ -66,7 +66,7 @@
 
             <ul class='clean-list'>
                 @foreach($searchResults as $slug => $book)
-                <li><a href='/books/{{ $slug }}'> {{ $book['title']   }}</a></li>
+                <li><a test='search-result-link' href='/books/{{ $slug }}'> {{ $book['title']   }}</a></li>
                 @endforeach
             </ul>
         </div>

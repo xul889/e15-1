@@ -3,11 +3,154 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Book;
+use App\Models\User;
+use App\Models\Author;
 
 class PracticeController extends Controller
 {
+    /**
+     * Demonstrating how to do an update with a Many to Many relationship
+     */
+    public function practice18()
+    {
+        # As an example, grab a user we know has books on their list
+        $user = User::where('email', '=', 'jill@harvard.edu')->first();
+
+        # Grab the first book on their list
+        $book = $user->books()->first();
+
+        # Update and save the notes for this relationship
+        $book->pivot->notes = "New note...";
+        $book->pivot->save();
+
+        # Confirm it worked
+        return 'Update complete. Check the `book_user` table to confirm.';
+    }
+
+    /**
+     * Demonstrating how to do a delete with a Many to Many relationship
+     */
+    public function practice17()
+    {
+        # As an example, grab a user we know has books on their list
+        $user = User::where('email', '=', 'jill@harvard.edu')->first();
+
+        # Grab the first book on their list
+        $book = $user->books()->first();
+
+        # Delete the relationship
+        $book->pivot->delete();
+
+        # Confirm it worked
+        return 'Delete complete. Check the `book_user` table to confirm.';
+    }
+    
+    /**
+     * Demonstrating how to persist a new Many to Many relationship
+     */
+    public function practice16()
+    {
+        $user = User::where('email', '=', 'jamal@harvard.edu')->first();
+        $book = Book::where('title', '=', 'The Martian')->first();
+
+        $user->books()->save($book, ['notes' => 'I liked this book a lot.']);
+    }
+
+    /**
+     * Demonstrating how to eager load a Many to Many relationship
+     */
+    public function practice15()
+    {
+        $books = Book::with('users')->get();
+
+        foreach ($books as $book) {
+            dump($book->title);
+            foreach ($book->users as $user) {
+                dump($user->toArray());
+            }
+        }
+    }
+
+    /**
+     * Demonstrating how to query a Many to many relationship
+     * from the perspective of books
+     */
+    public function practice14()
+    {
+        $book = Book::where('title', '=', 'The Martian')->first();
+
+        dump($book->users->toArray());
+    }
+
+    /**
+    * Demonstrating how to query a Many to many relationship
+    * from the perspective of users
+    */
+    public function practice13()
+    {
+        $user = User::where('email', '=', 'jamal@harvard.edu')->first();
+    
+        dump($user->books->toArray());
+    }
+    
+    /**
+     * Demonstrating eager loading
+     */
+    public function practice12()
+    {
+        # Eager load the author with the book
+        $books = Book::with('author')->get();
+
+        foreach ($books as $book) {
+            if ($book->author) {
+                dump($book->author->first_name.' '.$book->author->last_name.' wrote '.$book->title);
+            } else {
+                dump($book->title. ' has no author associated with it.');
+            }
+        }
+
+        dump($books->toArray());
+    }
+
+    /**
+     * Demonstrating querying a One to Many relationship
+     */
+    public function practice11()
+    {
+        # Get an example book
+        $book = Book::whereNotNull('author_id')->first();
+
+        # Get the author from this book using the "author" dynamic property
+        # "author" corresponds to the the relationship method defined in the Book model
+        $author = $book->author;
+
+        # Output
+        dump($book->title.' was written by '.$author->first_name.' '.$author->last_name);
+        dump($book->toArray());
+    }
+    
+    /**
+     * Demonstrating persisting a One to Many relationship
+     */
+    public function practice10()
+    {
+        $author = Author::where('first_name', '=', 'J.K.')->first();
+
+        $book = new Book;
+        $book->slug = 'fantastic-beasts-and-where-to-find-them';
+        $book->title = "Fantastic Beasts and Where to Find Them";
+        $book->published_year = 2001;
+        $book->cover_url = 'https://hes-bookmark.s3.amazonaws.com/cover-placeholder.png';
+        $book->info_url = 'https://en.wikipedia.org/wiki/Fantastic_Beasts_and_Where_to_Find_Them';
+        $book->purchase_url = 'http://www.barnesandnoble.com/w/fantastic-beasts-and-where-to-find-them-j-k-rowling/1004478855';
+        $book->author()->associate($author); # <--- Associate the author with this book
+        $book->description = 'Fantastic Beasts and Where to Find Them is a 2001 guide book written by British author J. K. Rowling (under the pen name of the fictitious author Newt Scamander) about the magical creatures in the Harry Potter universe. The original version, illustrated by the author herself, purports to be Harry Potter’s copy of the textbook of the same name mentioned in Harry Potter and the Philosopher’s Stone (or Harry Potter and the Sorcerer’s Stone in the US), the first novel of the Harry Potter series. It includes several notes inside it supposedly handwritten by Harry, Ron Weasley, and Hermione Granger, detailing their own experiences with some of the beasts described, and including in-jokes relating to the original series.';
+        $book->save();
+        dump($book->toArray());
+    }
+
     /**
      * Demonstrating accessing the currently logged in user
      */

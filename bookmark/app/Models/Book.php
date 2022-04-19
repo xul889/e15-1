@@ -12,6 +12,9 @@ class Book extends Model
 {
     use HasFactory;
 
+    /**
+     *
+     */
     public function users()
     {
         return $this->belongsToMany('App\Models\User')
@@ -19,6 +22,9 @@ class Book extends Model
         ->withPivot('notes'); # Must also specify any other fields that should be included when fetching this relationship
     }
 
+    /**
+     *
+     */
     public function author()
     {
         # Book belongs to Author
