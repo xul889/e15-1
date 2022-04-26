@@ -6,5 +6,11 @@ namespace Helper;
 
 class Acceptance extends \Codeception\Module
 {
+    public function _beforeSuite($settings = [])
+    {
+        // $I = $this;
+        // $I->comment('hai');
 
+        // var_dump('here');
+    }
 }

@@ -10,7 +10,7 @@ All Books
 
 @section('content')
 
-<h1>All Books</h1>
+<h1 test='all-books-heading'>All Books</h1>
 
 @if(count($books) != 0)
 <div id='newBooks'>
@@ -28,7 +28,7 @@ All Books
 @else
 <div id='books'>
     @foreach($books as $book)
-    <a class='book' href='/books/{{ $book->slug }}'>
+    <a test='book-link-{{$book->slug}}' class='book' href='/books/{{ $book->slug }}'>
         <h3>{{ $book->title }}</h3>
         <img class='cover' src='{{ $book->cover_url }}'>
     </a>

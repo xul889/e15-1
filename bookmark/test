@@ -1,0 +1,3 @@
+#!/bin/sh
+
+(cd tests/codeception ; codecept run acceptance --steps --fail-fast)

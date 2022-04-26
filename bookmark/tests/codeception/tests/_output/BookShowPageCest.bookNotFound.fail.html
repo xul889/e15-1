@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang='en'>
+<head>
+    <title>All Books
+</title>
+    <meta charset='utf-8'>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <link href='/css/bookmark.css' type='text/css' rel='stylesheet'>
+
+    <link href='/css/books/index.css' rel='stylesheet'>
+</head>
+<body>
+
+            <div class='flash-alert'>
+            Book not found.
+        </div>
+    
+    <header>
+        <a href='/'><img src='/images/bookmark-logo@2x.png' id='logo' alt='Bookmark Logo'></a>
+
+        <nav>
+            <ul>
+                <li><a href='/'>Home</a></li>
+
+                                <li><a href='/books'>All Books</a></li>
+                <li><a href='/books/create'>Add a Book</a></li>
+                <li><a href='/list'>Your list</a></li>
+                
+                <li><a href='/contact'>Contact</a></li>
+                
+                <li>
+                                        <form method='POST' id='logout' action='/logout'>
+                        <input type="hidden" name="_token" value="0W2keIQm8bS94QGFr0PQALQSkc3rAgmy0RAkPF94">
+
+                        
+
+                        <button type='submit' class='button-link' test='logout-button'>
+                            Logout
+                        </button>
+                    </form>
+                                    </li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <section id='main'>
+        
+<h1 test='all-books-heading'>All Books</h1>
+
+<div id='newBooks'>
+    <h2>New Books</h2>
+    <ul class='clean-list'>
+                <li><a test='new-book-link' href='/books/quia-enim-porro-provident-est-dolore'>Quia Enim Porro Provident Est Dolore</a></li>
+                <li><a test='new-book-link' href='/books/molestias-minus-ab'>Molestias Minus Ab</a></li>
+                <li><a test='new-book-link' href='/books/vel-nulla-eveniet-perspiciatis'>Vel Nulla Eveniet Perspiciatis</a></li>
+            </ul>
+</div>
+
+<div id='books'>
+        <a test='book-link-harry-potter-and-the-chamber-of-secrets' class='book' href='/books/harry-potter-and-the-chamber-of-secrets'>
+        <h3>Harry Potter and the Chamber of Secrets</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/harry-potter-and-the-chamber-of-secrets.jpg'>
+    </a>
+        <a test='book-link-harry-potter-and-the-philosophers-stone' class='book' href='/books/harry-potter-and-the-philosophers-stone'>
+        <h3>Harry Potter and the Philosopher’s Stone</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/harry-potter-and-the-philosophers-stone.jpg'>
+    </a>
+        <a test='book-link-harry-potter-and-the-prisoner-of-azkaban' class='book' href='/books/harry-potter-and-the-prisoner-of-azkaban'>
+        <h3>Harry Potter and the Prisoner of Azkaban</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/harry-potter-and-the-prisoner-of-azkaban.jpg'>
+    </a>
+        <a test='book-link-i-know-why-the-caged-bird-sings' class='book' href='/books/i-know-why-the-caged-bird-sings'>
+        <h3>I Know Why the Caged Bird Sings</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/i-know-why-the-caged-bird-sings.jpg'>
+    </a>
+        <a test='book-link-molestias-minus-ab' class='book' href='/books/molestias-minus-ab'>
+        <h3>Molestias Minus Ab</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/cover-placeholder.png'>
+    </a>
+        <a test='book-link-quia-enim-porro-provident-est-dolore' class='book' href='/books/quia-enim-porro-provident-est-dolore'>
+        <h3>Quia Enim Porro Provident Est Dolore</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/cover-placeholder.png'>
+    </a>
+        <a test='book-link-recusandae-hic-maxime-similique-sed-magnam' class='book' href='/books/recusandae-hic-maxime-similique-sed-magnam'>
+        <h3>Recusandae Hic Maxime Similique Sed Magnam</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/cover-placeholder.png'>
+    </a>
+        <a test='book-link-sunt-natus-tempore' class='book' href='/books/sunt-natus-tempore'>
+        <h3>Sunt Natus Tempore</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/cover-placeholder.png'>
+    </a>
+        <a test='book-link-the-bell-jar' class='book' href='/books/the-bell-jar'>
+        <h3>The Bell Jar</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/the-bell-jar.jpg'>
+    </a>
+        <a test='book-link-the-great-gatsby' class='book' href='/books/the-great-gatsby'>
+        <h3>The Great Gatsby</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/the-great-gatsby.jpg'>
+    </a>
+        <a test='book-link-vel-nulla-eveniet-perspiciatis' class='book' href='/books/vel-nulla-eveniet-perspiciatis'>
+        <h3>Vel Nulla Eveniet Perspiciatis</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/cover-placeholder.png'>
+    </a>
+    </div>
+
+    </section>
+
+    <footer>
+        &copy; Bookmark, Inc.
+    </footer>
+
+</body>
+</html>

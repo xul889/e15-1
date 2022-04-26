@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang='en'>
+<head>
+    <title>All Books
+</title>
+    <meta charset='utf-8'>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <link href='/css/bookmark.css' type='text/css' rel='stylesheet'>
+
+    <link href='/css/books/index.css' rel='stylesheet'>
+</head>
+<body>
+
+            <div class='flash-alert'>
+            “The Great Gatsby” was removed.
+        </div>
+    
+    <header>
+        <a href='/'><img src='/images/bookmark-logo@2x.png' id='logo' alt='Bookmark Logo'></a>
+
+        <nav>
+            <ul>
+                <li><a href='/'>Home</a></li>
+
+                                <li><a href='/books'>All Books</a></li>
+                <li><a href='/books/create'>Add a Book</a></li>
+                <li><a href='/list'>Your list</a></li>
+                
+                <li><a href='/contact'>Contact</a></li>
+                
+                <li>
+                                        <form method='POST' id='logout' action='/logout'>
+                        <input type="hidden" name="_token" value="vp6dOnAvPbGkUL3gDjdgFvtvjqyhyMpewFYd9iQq">
+
+                        
+
+                        <button type='submit' class='button-link' test='logout-button'>
+                            Logout
+                        </button>
+                    </form>
+                                    </li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <section id='main'>
+        
+<h1 test='all-books-heading'>All Books</h1>
+
+<div id='newBooks'>
+    <h2>New Books</h2>
+    <ul class='clean-list'>
+                <li><a test='new-book-link' href='/books/ab-ex-a-consequatur'>Ab Ex A Consequatur</a></li>
+                <li><a test='new-book-link' href='/books/inventore-harum-voluptatem-magni-vel-adipisci'>Inventore Harum Voluptatem Magni Vel Adipisci</a></li>
+                <li><a test='new-book-link' href='/books/tempore-ex-asperiores-reprehenderit-perferendis-voluptas'>Tempore Ex Asperiores Reprehenderit Perferendis Voluptas</a></li>
+            </ul>
+</div>
+
+<div id='books'>
+        <a test='book-link-ab-ex-a-consequatur' class='book' href='/books/ab-ex-a-consequatur'>
+        <h3>Ab Ex A Consequatur</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/cover-placeholder.png'>
+    </a>
+        <a test='book-link-dolor-possimus-architecto-libero-provident' class='book' href='/books/dolor-possimus-architecto-libero-provident'>
+        <h3>Dolor Possimus Architecto Libero Provident</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/cover-placeholder.png'>
+    </a>
+        <a test='book-link-harry-potter-and-the-chamber-of-secrets' class='book' href='/books/harry-potter-and-the-chamber-of-secrets'>
+        <h3>Harry Potter and the Chamber of Secrets</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/harry-potter-and-the-chamber-of-secrets.jpg'>
+    </a>
+        <a test='book-link-harry-potter-and-the-philosophers-stone' class='book' href='/books/harry-potter-and-the-philosophers-stone'>
+        <h3>Harry Potter and the Philosopher’s Stone</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/harry-potter-and-the-philosophers-stone.jpg'>
+    </a>
+        <a test='book-link-harry-potter-and-the-prisoner-of-azkaban' class='book' href='/books/harry-potter-and-the-prisoner-of-azkaban'>
+        <h3>Harry Potter and the Prisoner of Azkaban</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/harry-potter-and-the-prisoner-of-azkaban.jpg'>
+    </a>
+        <a test='book-link-i-know-why-the-caged-bird-sings' class='book' href='/books/i-know-why-the-caged-bird-sings'>
+        <h3>I Know Why the Caged Bird Sings</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/i-know-why-the-caged-bird-sings.jpg'>
+    </a>
+        <a test='book-link-inventore-harum-voluptatem-magni-vel-adipisci' class='book' href='/books/inventore-harum-voluptatem-magni-vel-adipisci'>
+        <h3>Inventore Harum Voluptatem Magni Vel Adipisci</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/cover-placeholder.png'>
+    </a>
+        <a test='book-link-odit-unde-delectus-quae' class='book' href='/books/odit-unde-delectus-quae'>
+        <h3>Odit Unde Delectus Quae</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/cover-placeholder.png'>
+    </a>
+        <a test='book-link-tempore-ex-asperiores-reprehenderit-perferendis-voluptas' class='book' href='/books/tempore-ex-asperiores-reprehenderit-perferendis-voluptas'>
+        <h3>Tempore Ex Asperiores Reprehenderit Perferendis Voluptas</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/cover-placeholder.png'>
+    </a>
+        <a test='book-link-the-bell-jar' class='book' href='/books/the-bell-jar'>
+        <h3>The Bell Jar</h3>
+        <img class='cover' src='https://hes-bookmark.s3.amazonaws.com/the-bell-jar.jpg'>
+    </a>
+    </div>
+
+    </section>
+
+    <footer>
+        &copy; Bookmark, Inc.
+    </footer>
+
+</body>
+</html>

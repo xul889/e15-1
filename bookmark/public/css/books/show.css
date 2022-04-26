@@ -20,7 +20,8 @@ img.cover {
     display: inline-block;
 }
 
-.bookActions li a {
+.bookActions li a,
+.bookActions li button {
     text-decoration: none;
     padding-right: 20px;
 }

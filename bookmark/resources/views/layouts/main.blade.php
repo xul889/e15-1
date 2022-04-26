@@ -37,11 +37,16 @@
                 
                 <li>
                     @if(!Auth::user())
-                    <a href='/login'>Login</a>
+                    <a href='/login' test='login-link'>Login</a>
                     @else
                     <form method='POST' id='logout' action='/logout'>
                         {{ csrf_field() }}
-                        <a href='#' onClick='document.getElementById("logout").submit();'>Logout</a>
+
+                        {{-- <a href='#' onClick='document.getElementById("logout").submit();'>Logout</a> --}}
+
+                        <button type='submit' class='button-link' test='logout-button'>
+                            Logout
+                        </button>
                     </form>
                     @endif
                 </li>

@@ -23,6 +23,6 @@ Route::get('/books', function (Request $request) {
     return Book::all();
 });
 
-Route::get('/books/{slug}', function ($slug) {
+Route::get('/books/{slug}', function (Request $request, $slug) {
     return Book::findBySlug($slug);
 });

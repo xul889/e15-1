@@ -14,9 +14,7 @@ class BookController extends Controller
     */
     public function create(Request $request)
     {
-        # Get data for authors in alphabetical order by last name
-        $authors = Author::orderBy('last_name')->select(['id', 'first_name', 'last_name'])->get();
-
+        $authors = Author::getForDropdown();
         return view('books/create', ['authors' => $authors]);
     }
 
@@ -125,8 +123,7 @@ class BookController extends Controller
     {
         $book = Book::where('slug', '=', $slug)->first();
 
-        # Get data for authors in alphabetical order by last name
-        $authors = Author::orderBy('last_name')->select(['id', 'first_name', 'last_name'])->get();
+        $authors = Author::getForDropdown();
 
         if (!$book) {
             return redirect('/books')->with(['flash-alert' => 'Book not found.']);
@@ -148,7 +145,7 @@ class BookController extends Controller
         $request->validate([
         'title' => 'required',
         'slug' => 'required|unique:books,slug,' . $book->id . '|alpha_dash',
-        'author' => 'required',
+        'author_id' => 'required',
         'published_year' => 'required|digits:4',
         'cover_url' => 'url',
         'info_url' => 'url',
@@ -158,7 +155,7 @@ class BookController extends Controller
 
         $book->title = $request->title;
         $book->slug = $request->slug;
-        $book->author = $request->author;
+        $book->author_id = $request->author_id;
         $book->published_year = $request->published_year;
         $book->cover_url = $request->cover_url;
         $book->info_url = $request->info_url;
@@ -194,7 +191,11 @@ class BookController extends Controller
     {
         $book = Book::findBySlug($slug);
 
-        #$book->users()->detach();
+        # Before we delete this book we first have to delete
+        # any relationships connected to this user
+        # In this case, that relationship is for our List feature
+        # that connects users and books
+        $book->users()->detach();
 
         $book->delete();
 

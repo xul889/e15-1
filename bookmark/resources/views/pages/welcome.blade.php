@@ -24,7 +24,7 @@
     <fieldset>
         <label for='searchTerms'>
             Search terms:
-            <input type='text' name='searchTerms' id='searchTerms' value='{{ old('searchTerms') }}'>
+            <input type='text' name='searchTerms' id='searchTerms' test='search-input' value='{{ old('searchTerms') }}'>
         </label>
     </fieldset>
 
@@ -41,7 +41,7 @@
         
     </fieldset>
 
-    <button type='submit' class='btn btn-primary'>Search</button>
+    <button type='submit' test='search-button' class='btn btn-primary'>Search</button>
 
     @if(count($errors) > 0)
     <ul class='alert alert-danger'>

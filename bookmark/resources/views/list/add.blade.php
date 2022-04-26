@@ -12,8 +12,8 @@ Add {{ $book->title }} to your list
     {{ csrf_field() }}
 
     <label for='notes'>YOUR NOTES ON THIS BOOK</label>
-    <textarea name='notes' dusk='notes-textarea'>{{ old('notes') }}</textarea>
+    <textarea name='notes' test='notes-textarea'>{{ old('notes') }}</textarea>
 
-    <button type='submit' dusk='save-button' class='btn btn-primary'>Add to your list</button>
+    <button type='submit' test='add-to-list-button' class='btn btn-primary'>Add to your list</button>
 </form>
 @endsection
