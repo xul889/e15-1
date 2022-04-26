@@ -1,6 +1,6 @@
 <?php
 
-class ListPageCest
+class ListFeatureCest
 {
     /**
      *
@@ -8,6 +8,23 @@ class ListPageCest
     public function _before(AcceptanceTester $I)
     {
         $I->amOnPage('/test/refresh-database');
+    }
+
+    /**
+     *
+     */
+    public function removeBookFromListFromBookPage(AcceptanceTester $I)
+    {
+        # Setup
+        $slug = 'the-great-gatsby';
+        $I->amOnPage('/test/login-as/2');
+
+        # Act
+        $I->amOnPage('/books/'.$slug);
+        $I->click('[test=' . $slug . '-remove-from-list-button]');
+
+        # Assert
+        $I->seeElement('[test=add-to-list-button]');
     }
     
     /**

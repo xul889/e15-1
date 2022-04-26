@@ -24,7 +24,7 @@ n/a
 Codeception PHP Testing Framework v4.1.31 https://helpukrainewin.org
 Powered by PHPUnit 8.5.24 #StandWithUkraine
 
-Acceptance Tests (15) -----------------------------------------------------------------------------------------------------------------------------------
+Acceptance Tests (23) -------------------------------------------------------------------------------------------
 BookCreatePageCest: Adds a new book
 Signature: BookCreatePageCest:addsANewBook
 Test: tests/acceptance/BookCreatePageCest.php:addsANewBook
@@ -39,7 +39,7 @@ Scenario --
  I fill field "[test=cover-url-input]","https://hes-bookmark.s3.amazonaws.com/cover-placeholder.png"
  I fill field "[test=purchase-url-input]","https://www.barnesandnoble.com/test-book"
  I fill field "[test=info-url-input]","https://en.wikipedia.org/wiki/test-book"
- I fill field "[test=description-textarea]","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus in pulvinar libero. Pellentesque habita..."
+ I fill field "[test=description-textarea]","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus..."
  I click "[test=submit-button]"
  I see "Your book was added"
  I am on page "/books/test-book"
@@ -148,12 +148,34 @@ Scenario --
  I am on page "/books/the-great-gatsby"
  I click "[test=delete-button]"
  I click "[test=confirm-delete-button]"
- I don't see "The Great Gatsby"
+ I don't see element "[test=book-link-the-great-gatsby]"
  PASSED 
 
-ListPageCest: Shows empty list
-Signature: ListPageCest:showsEmptyList
-Test: tests/acceptance/ListPageCest.php:showsEmptyList
+BookShowPageCest: Book not found
+Signature: BookShowPageCest:bookNotFound
+Test: tests/acceptance/BookShowPageCest.php:bookNotFound
+Scenario --
+ I am on page "/test/refresh-database"
+ I am on page "/test/login-as/1"
+ I am on page "/books/slug-does-not-exist"
+ I see "Book not found."
+ I see element "[test=all-books-heading]"
+ PASSED 
+
+ListFeatureCest: Remove book from list from book page
+Signature: ListFeatureCest:removeBookFromListFromBookPage
+Test: tests/acceptance/ListFeatureCest.php:removeBookFromListFromBookPage
+Scenario --
+ I am on page "/test/refresh-database"
+ I am on page "/test/login-as/2"
+ I am on page "/books/the-great-gatsby"
+ I click "[test=the-great-gatsby-remove-from-list-button]"
+ I see element "[test=add-to-list-button]"
+ PASSED 
+
+ListFeatureCest: Shows empty list
+Signature: ListFeatureCest:showsEmptyList
+Test: tests/acceptance/ListFeatureCest.php:showsEmptyList
 Scenario --
  I am on page "/test/refresh-database"
  I am on page "/test/login-as/1"
@@ -161,9 +183,9 @@ Scenario --
  I see element "[test=no-books-message]"
  PASSED 
 
-ListPageCest: Adds book to list
-Signature: ListPageCest:addsBookToList
-Test: tests/acceptance/ListPageCest.php:addsBookToList
+ListFeatureCest: Adds book to list
+Signature: ListFeatureCest:addsBookToList
+Test: tests/acceptance/ListFeatureCest.php:addsBookToList
 Scenario --
  I am on page "/test/refresh-database"
  I am on page "/test/login-as/1"
@@ -174,9 +196,9 @@ Scenario --
  I see "Lorem ipsum dolor sit amet, consectetur adipiscing elit.","[test=the-great-gatsby-notes-textarea]"
  PASSED 
 
-ListPageCest: Removes book from list
-Signature: ListPageCest:removesBookFromList
-Test: tests/acceptance/ListPageCest.php:removesBookFromList
+ListFeatureCest: Removes book from list
+Signature: ListFeatureCest:removesBookFromList
+Test: tests/acceptance/ListFeatureCest.php:removesBookFromList
 Scenario --
  I am on page "/test/refresh-database"
  I am on page "/test/login-as/2"
@@ -187,19 +209,51 @@ Scenario --
  I see element "[test=add-to-list-button]"
  PASSED 
 
-LoginPageCest: Page loads
-Signature: LoginPageCest:pageLoads
-Test: tests/acceptance/LoginPageCest.php:pageLoads
+ListFeatureCest: Update book on list
+Signature: ListFeatureCest:updateBookOnList
+Test: tests/acceptance/ListFeatureCest.php:updateBookOnList
 Scenario --
  I am on page "/test/refresh-database"
- I am on page "/login"
- I see "Login"
- I see element "#email"
+ I am on page "/test/login-as/2"
+ I am on page "/list"
+ I fill field "[test="the-great-gatsby-notes-textarea"]","Some new note..."
+ I click "[test="the-great-gatsby-update-button"]"
+ I see "Your note for The Great Gatsby was updated."
+ I see "Some new note...","[test="the-great-gatsby-notes-textarea"]"
  PASSED 
 
-LoginPageCest: User can log in
-Signature: LoginPageCest:userCanLogIn
-Test: tests/acceptance/LoginPageCest.php:userCanLogIn
+UserFeatureCest: User can register
+Signature: UserFeatureCest:userCanRegister
+Test: tests/acceptance/UserFeatureCest.php:userCanRegister
+Scenario --
+ I am on page "/test/refresh-database"
+ I am on page "/register"
+ I fill field "[test=name-input]","Test User"
+ I fill field "[test=email-input]","test@email.com"
+ I fill field "[test=password-input]","asdfasdf"
+ I fill field "[test=password-confirmation-input]","asdfasdf"
+ I click "[test=register-button]"
+ I see "Test User"
+ I see "Logout","nav"
+ PASSED 
+
+UserFeatureCest: Registration is validated
+Signature: UserFeatureCest:registrationIsValidated
+Test: tests/acceptance/UserFeatureCest.php:registrationIsValidated
+Scenario --
+ I am on page "/test/refresh-database"
+ I am on page "/register"
+ I fill field "[test=name-input]","Test User"
+ I fill field "[test=email-input]","jill@harvard.edu"
+ I fill field "[test=password-input]","asdfasdf"
+ I fill field "[test=password-confirmation-input]","asdfasdf"
+ I click "[test=register-button]"
+ I see "The email has already been taken."
+ PASSED 
+
+UserFeatureCest: User can log in
+Signature: UserFeatureCest:userCanLogIn
+Test: tests/acceptance/UserFeatureCest.php:userCanLogIn
 Scenario --
  I am on page "/test/refresh-database"
  I am on page "/login"
@@ -210,10 +264,56 @@ Scenario --
  I see "Logout","nav"
  PASSED 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------
+UserFeatureCest: User can logout
+Signature: UserFeatureCest:userCanLogout
+Test: tests/acceptance/UserFeatureCest.php:userCanLogout
+Scenario --
+ I am on page "/test/refresh-database"
+ I am on page "/test/login-as/1"
+ I am on page "/"
+ I click "[test=logout-button]"
+ I see element "[test=login-link]"
+ PASSED 
+
+UserFeatureCest: Login is validated
+Signature: UserFeatureCest:loginIsValidated
+Test: tests/acceptance/UserFeatureCest.php:loginIsValidated
+Scenario --
+ I am on page "/test/refresh-database"
+ I am on page "/login"
+ I fill field "[test=email-input]","jill@harvard.edu"
+ I fill field "[test=password-input]","bad-password"
+ I click "[test=login-button]"
+ I see "These credentials do not match our records."
+ PASSED 
+
+UserFeatureCest: Guests cant visit restricted pages
+Signature: UserFeatureCest:guestsCantVisitRestrictedPages
+Test: tests/acceptance/UserFeatureCest.php:guestsCantVisitRestrictedPages
+Scenario --
+ I am on page "/test/refresh-database"
+ I am on page "/books"
+ I see element "[test=login-button]"
+ PASSED 
+
+DuplicatePageCest: Search yields results
+Signature: DuplicatePageCest:searchYieldsResults
+Test: tests/acceptance/WelcomePageCest.php:searchYieldsResults
+Scenario --
+ I am on page "/test/refresh-database"
+ I am on page "/test/login-as/1"
+ I am on page "/"
+ I fill field "[test=search-input]","Harry Potter"
+ I click "[test=search-button]"
+ I see "Harry Potter and the Philosopher’s Stone"
+ I grab multiple "[test=search-result-link]"
+ I assert equals 3,3
+ PASSED 
+
+-----------------------------------------------------------------------------------------------------------------
 
 
-Time: 22.32 seconds, Memory: 26.99 MB
+Time: 29.24 seconds, Memory: 18.99 MB
 
-OK (15 tests, 22 assertions)
+OK (23 tests, 33 assertions)
 ```

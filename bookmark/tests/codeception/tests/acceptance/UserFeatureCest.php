@@ -9,7 +9,7 @@ class UserFeatureCest
     {
         $I->amOnPage('/test/refresh-database');
     }
-
+ 
     /**
      *
      */

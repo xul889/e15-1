@@ -59,7 +59,7 @@ class ListController extends Controller
             'flash-alert' => 'Your note for ' .$book->title. ' was updated.'
         ]);
     }
-
+     
     /**
      * DELETE /list/{slug}/destroy
      */
